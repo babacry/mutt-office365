@@ -20,7 +20,12 @@ set spoolfile= +INBOX
 set postponed= +$my_drafts_noquote
 set record = +$my_sent_noquote
 set trash = +$my_trash_noquote
-mailboxes
+mailboxes =INBOX
+mailboxes =Sent\ items
+mailboxes =People/Molei =People/Grad\ Students
+mailboxes =Gatech/Teaching
+mailboxes =People/Grad\ Students
+mailboxes =IT
 
 set imap_check_subscribed="yes"
 set imap_list_subscribed="yes"
@@ -76,14 +81,22 @@ set sort_aux="last-date-received"
 unset collapse_unread
 set index_format=" %?M?   ↳&%4C?   %Z      %D     %-15.15n    %s"
 
+# sidebar
+set sidebar_visible
+set sidebar_width=35
+set sidebar_format = "%B%?F? [%F]?%* %N/%S"
+# set sidebar_format = "%B%* %F:%N:%S"
+set mail_check_stats
+
 ## Key bindings
 
 # Mailboxes
-bind    index   G  imap-fetch-mail
-macro   index   gi "<change-folder>=INBOX<enter>"       "Go to Inbox"
-macro   index   gs "<change-folder>=$my_sent<enter>"    "Go to Sent"
-macro   index   gd "<change-folder>=$my_drafts<enter>"  "Go to Drafts"
-macro   index   gt "<change-folder>=$my_trash<enter>"   "Go to Trash"
+bind  index G  imap-fetch-mail
+macro index gi "<change-folder>=INBOX<enter>"        "Go to Inbox"
+macro index gs "<change-folder>=$my_sent<enter>"     "Go to Sent"
+macro index gd "<change-folder>=$my_drafts<enter>"   "Go to Drafts"
+macro index gt "<change-folder>=$my_trash<enter>"    "Go to Trash"
+macro index gm "<change-folder>=People/Molei<enter>" "Go to People/Molei"
 
 # Index
 bind    index   <up>        previous-entry
@@ -108,7 +121,16 @@ bind    pager   n           next-entry
 bind    pager   p           previous-entry
 bind    pager   w           previous-page
 
-# Colors
+# Sidebar
+bind    index    \CP sidebar-prev
+bind    index    \CN sidebar-next
+bind    index    \CK sidebar-open
+bind    pager    \CP sidebar-prev
+bind    pager    \CN sidebar-next
+bind    pager    \CK sidebar-open
+
+
+## Colors
 color   normal      white default
 color   attachment  brightyellow default
 color   hdrdefault  cyan default
@@ -127,6 +149,9 @@ color   header      brightblue default ^Subject:
 color   body        brightred default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
 color   body        brightblue default (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
 
+
+
 # For better looks
 #set markers=no # don't put '+' at the beginning of wrapped lines
 #set pager_index_lines= 5 # how large is the index window?
+
